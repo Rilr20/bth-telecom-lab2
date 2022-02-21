@@ -1,1 +1,1 @@
-#bth sak
+# bth-telecom-lab2
