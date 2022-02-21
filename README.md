@@ -1,1 +1,1 @@
-# bth lab 2
+# bth telecom lab 2
