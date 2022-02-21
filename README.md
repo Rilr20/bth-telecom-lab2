@@ -1,1 +1,0 @@
-# bth-telecom-lab2
