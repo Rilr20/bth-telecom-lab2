@@ -1,3 +1,6 @@
+# Rikard Larsson Rilr20 BTH
+# Mottagare
+
 #kolla paketnummret
 #är det för högt? 10005 => 10007
 #kommer de i rätt ordning? 10006 => 10005
@@ -6,32 +9,38 @@
 from socket import *
 serverPort = 12000
 
-# create TCP welcoming socket
-serverSocket = socket(AF_INET, SOCK_STREAM)
-serverSocket.bind(('',serverPort))
+# create UDP socket and bind to specified port
+serverSocket = socket(AF_INET, SOCK_DGRAM)
+serverSocket.bind(('', serverPort))
 
-# server starts listening for incoming TCP requests
-serverSocket.listen(1)
-
-print ('The TCP server is ready to receive')
-
+print ("The UDP server is ready to recieve")
+prev_package = 0
 while True:
-    # server waits for incoming requests; new socket created on return
-    connectionSocket, addr = serverSocket.accept()
+    # read client's message and remember client's address (IP and port)
+    sentence, clientAddress = serverSocket.recvfrom(2048)
+    decoded = sentence.decode()
+    split_sentence = decoded.split(";")
+    # Print message and client address
+    # print (sentence.decode())
+    # print (clientAddress)
 
-    # read sentence of bytes from socket sent by the client
-    sentence = connectionSocket.recv(1024).decode()
-    split_sentence = sentence.split(";")
+    # if not sentence:
+    #     print("now i close")
+    #     connectionSocket.close()
+    #     break
+    # print (f'paketnummer {split_sentence[0]} {split_sentence[1][:-4]}')
+    if prev_package+1 == int(split_sentence[0]):
+        print(f'correct package arrived: {split_sentence[0]}')
+    elif prev_package < int(split_sentence[0]):
+        print(f'wrong package arrived too large expected {prev_package+1} got {split_sentence[0]}')
+    elif prev_package > int(split_sentence[0]):
+        # print(split_sentence[0])
+        # print(prev_package)
+        print(f'wrong package arrived too small expected {prev_package+1} got {split_sentence[0]}')
 
-    # print package number and sentence
-    print (f'paketnummer {split_sentence[0]} {split_sentence[1][:-4]}')
+    prev_package += 1
+    # change sentence to upper case letters
+    # modifiedMessage = message.decode().upper()
 
-    # convert sentence to upper case
-    capitalizedSentence = sentence.upper()
-
-    # send back modified sentence over the TCP connection
-    connectionSocket.send(capitalizedSentence.encode())
- 
-    # close the TCP connection; the welcoming socket continues
-    if int(split_sentence[0]) >= 100:
-        connectionSocket.close()
+    # send back modified sentence to client using remembered address
+    # serverSocket.sendto(modifiedMessage.encode(), clientAddress)
