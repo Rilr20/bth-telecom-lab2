@@ -36,8 +36,8 @@ if time_to_end == "" or time_to_end.isalpha():
 #skapar ett meddelande som är 1400 byteslångt
 packet_size = 1400
 message = ""
-for i in range(0, int(packet_size/2)):
-    message += "ä"
+for i in range(0, int(packet_size)):
+    message += "a"
 # create TCP socket on client to use for connecting to remote server
 clientSocket = socket(AF_INET, SOCK_STREAM)
 
@@ -60,7 +60,7 @@ while True:
     print(f'package {i}')
     time_delta = datetime.now() - start_time
     time.sleep(float(waittime))
-    if time_delta.total_seconds() >= time_to_end:
+    if time_delta.total_seconds() >= float(time_to_end):
         break
 
 # close the TCP connection

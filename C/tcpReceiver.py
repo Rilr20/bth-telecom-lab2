@@ -30,6 +30,7 @@ while True:
         connectionSocket.close()
         break
     # print (f'paketnummer {split_sentence[0]} {split_sentence[1][:-4]}')
+    print(split_sentence[0])
     if prev_package+1 == int(split_sentence[0]):
         print(f'correct package arrived: {split_sentence[0]}')
     elif prev_package < int(split_sentence[0]):
