@@ -14,7 +14,7 @@ from datetime import datetime
 import time
 
 #destinations porten
-serverName = '192.168.1.31'
+serverName = '192.168.1.112'
 serverPort = 12000
 #changes the speed of messages is sent
 time_to_end = 10
@@ -38,7 +38,7 @@ packet_size = 1400
 message = ""
 for i in range(0, int(packet_size)):
     message += "a"
-# create TCP socket on client to use for connecting to remote server
+# create TCP socket on client to use for connecting to  remote server
 clientSocket = socket(AF_INET, SOCK_STREAM)
 
 # open the TCP connection
@@ -48,7 +48,7 @@ clientSocket.connect((serverName, serverPort))
 # sentence = input('Input lowercase sentence: ')
 
 # ska köra i 10 sekunder sedan sluta
-i = 0
+i = 10000
 # this_list = [1,2,3,4,5,6,7,8,9,10,11,13,12,14,15,16,17,18,17,19]
 start_time = datetime.now()
 # while i < len(this_list):
@@ -57,7 +57,7 @@ while True:
     # package = f'{this_list[i]};{message}####'
     package = f'{i};{message}####'
     clientSocket.send(package.encode())
-    print(f'package {i}')
+    # print(f'package {i}')
     time_delta = datetime.now() - start_time
     time.sleep(float(waittime))
     if time_delta.total_seconds() >= float(time_to_end):

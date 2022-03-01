@@ -22,7 +22,7 @@ prev_package = 10000
 while True:
     # server waits for incoming requests; new socket created on return
     # read sentence of bytes from socket sent by the client
-    sentence = connectionSocket.recv(2048).decode()
+    sentence = connectionSocket.recv(4096).decode()
     split_sentence = sentence.split(";")
     # print package number and sentence
     if not sentence:
