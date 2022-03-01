@@ -17,7 +17,16 @@ import time
 serverName = '192.168.1.112'
 serverPort = 12000
 waittime = 0.05
+time_to_end = 10
 
+waittime = input("Put in your waittime default is 0.05 seconds: ")
+if waittime == ""  or waittime.isalpha():
+    print("using default")
+    waittime = 0.05
+time_to_end = input("how many seconds should program run: ")
+if time_to_end == "" or time_to_end.isalpha():
+    print("using default 10 seconds")
+    time_to_end = 10
 #skapar paketet
 packet_size = 1400
 message = ""
@@ -28,12 +37,7 @@ for i in range(0, int(packet_size/2)):
 # create UDP socket
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
-# get input from keyboard
-# message = input('Input lowercase sentence:')
-
-# send sentence to socket; server and port number required
-
-i = 0
+i = 10000
 start_time = datetime.now()
 while True:
     i += 1
@@ -43,17 +47,8 @@ while True:
     clientSocket.sendto(package.encode(),(serverName, serverPort))
     print(f'package {i}')
     time_delta = datetime.now() - start_time
-    time.sleep(waittime)
-    if time_delta.total_seconds() >= 10:
+    time.sleep(float(waittime))
+    if time_delta.total_seconds() >= int(time_to_end):
         break
 
-# need to convert message from string to bytes for Python 3
-
-# receive the modified sentence in upper case letters from server
-# modifiedMessage, serverAddress = clientSocket.recvfrom(2048)
-
-# output modified sentence and close the socket, cast message to string
-# print ("Received from server: ", modifiedMessage.decode())
-
-# close UDP socket
 clientSocket.close()

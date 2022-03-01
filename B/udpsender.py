@@ -14,7 +14,8 @@ from socket import *
 from datetime import datetime
 import time
 
-serverName = '192.168.1.112'
+#destinations porten
+serverName = '192.168.1.31'
 serverPort = 12000
 waittime = 0.05
 time_to_end = 10
@@ -44,15 +45,15 @@ start_time = datetime.now()
 time_to_end = int(time_to_end)
 waittime = float(waittime)
 time_delta = datetime.now() - start_time
-print(time_delta.total_seconds() >= time_to_end)
-while time_delta.total_seconds() <= time_to_end:
+print(time_delta.total_seconds() <= time_to_end)
+while time_delta.total_seconds() < time_to_end:
     i += 1
     # package = f'{this_list[i]};{message}####'
     package = f'{i};{message}####'
     # clientSocket.send(package.encode())
     clientSocket.sendto(package.encode(),(serverName, serverPort))
     time_delta = datetime.now() - start_time
-    time.sleep(waittime)
+    # time.sleep(waittime)
     # if time_delta.total_seconds() >= time_to_end:
     #     break
 print(f'package {i}')

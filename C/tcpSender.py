@@ -14,7 +14,7 @@ from datetime import datetime
 import time
 
 #destinations porten
-serverName = '192.168.1.112'
+serverName = '192.168.1.31'
 serverPort = 12000
 #changes the speed of messages is sent
 time_to_end = 10

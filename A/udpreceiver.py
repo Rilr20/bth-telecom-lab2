@@ -14,7 +14,7 @@ serverSocket = socket(AF_INET, SOCK_DGRAM)
 serverSocket.bind(('', serverPort))
 
 print ("The UDP server is ready to recieve")
-prev_package = 0
+prev_package = 10000
 while True:
     # read client's message and remember client's address (IP and port)
     sentence, clientAddress = serverSocket.recvfrom(2048)
@@ -39,8 +39,3 @@ while True:
         print(f'wrong package arrived too small expected {prev_package+1} got {split_sentence[0]}')
 
     prev_package += 1
-    # change sentence to upper case letters
-    # modifiedMessage = message.decode().upper()
-
-    # send back modified sentence to client using remembered address
-    # serverSocket.sendto(modifiedMessage.encode(), clientAddress)
